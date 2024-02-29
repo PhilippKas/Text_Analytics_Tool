@@ -4,20 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'anl_txts_dash/style.css' %}">
     <title>Texts</title>
 </head>
 <body>
-    <div class="content">
-        <h1>Comments:</h1>
-        <div class="comment_box">
-            <ul>
+    <div class="container">
+        <div class="header">
+            Mercedes - Pay the bill and enjoy luxurious chill
+        </div>
+        <div class="sidebar">
+            Accounts because why the fuck not
+        </div>
+        <div class="filter-options">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <input type="text" name="search_text" placeholder="Enter your search term">
+                
+                <label for="toggle_pos_sent">
+                    <img id="pos_face_img" src="{% static 'anl_txts_dash/pos_face.svg' %}">
+                </label>
+                <input type="checkbox" id="toggle_pos_sent" name="toggle_pos_sent" checked>
+                
+                <label for="toggle_neg_sent">Negativ</label>
+                <input type="checkbox" id="toggle_neg_sent" name="toggle_neg_sent" checked>
+                
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="texts">
+            <div class="comment-box">
                 {% for comment in latest_comments_list %}
-                    <li>{{comment.comment}}</li>
+                <div class="comment">
+                    <p>
+                        {{comment.comment}}
+                    </p>
+                    <p>
+                        {{comment.sentiment}}
+                    </p>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
-
 </body>
+<script>
+    const posSentCheckbox = document.getElementById('toggle_pos_sent');
+    const posSentImageLabel = imageCheckbox.nextElementSibling;
+    // click on the image does not work
+    posSentImageLabel.addEventListener('click', function() {
+        posSentCheckbox.click();
+        console.log("test")
+    });
+</script>
 </html>
